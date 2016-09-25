@@ -12,7 +12,7 @@ public class Customer {
     public final String state = "";
     public final String domain = "";
     public final Boolean enabled = true;
-    public final Contact contract = null;
+    public final Contract contract = null;
     public final List<Contact> contacts = new ArrayList<Contact>();
 
     public Customer(Integer id,
@@ -20,7 +20,7 @@ public class Customer {
                     String state,
                     String domain,
                     Boolean enabled,
-                    Contact contract,
+                    Contract contract,
                     List<Contact> contacts) {
         this.id = id;
         this.name = name;

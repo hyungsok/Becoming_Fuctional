@@ -23,23 +23,9 @@ class Contact {
         this.enabled = enabled;
     }
 
-    /**
-     * 고객들에게 이메일을 발송
-        ● 이용 고객이다(Customer.enabled가 true).
-        ● 계약이 유효하다(Contract.enabled가 true).
-        ● 계약은 만료 전이다.
-        ● 현재 연락처가 있다(Contact.enabled가 true).
-     * @param msg
-     */
-    public static void sendEnabledCustomersEmails(String msg) {
-        Customer.allCustomers.findAll {
-            customer -> customer.enabled && customer.contract.enabled
-        }.each { customer ->
-            customer.contacts.findAll {
-                contact -> contact.enabled
-            }.each { contact ->
-                contact.sendEmail(msg)
-            }
-        }
+    public void sendEmail(String msg) {
+        println("--------------------------------------------------")
+        msg = String.format(msg, firstName, lastName)
+        println(msg)
     }
 }
