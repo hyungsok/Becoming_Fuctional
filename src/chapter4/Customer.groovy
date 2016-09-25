@@ -12,16 +12,16 @@ public class Customer {
     public final String state = "";
     public final String domain = "";
     public final Boolean enabled = true;
-    public final Contract contract = null;
-    public final List<Contract> contacts = new ArrayList<Contract>();
+    public final Contact contract = null;
+    public final List<Contact> contacts = new ArrayList<Contact>();
 
     public Customer(Integer id,
                     String name,
                     String state,
                     String domain,
                     Boolean enabled,
-                    Contract contract,
-                    List<Contract> contacts) {
+                    Contact contract,
+                    List<Contact> contacts) {
         this.id = id;
         this.name = name;
         this.state = state;
