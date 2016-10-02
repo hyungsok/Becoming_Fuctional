@@ -4,11 +4,11 @@ package chapter4
  * Created by hyungsok7 on 2016. 9. 25..
  */
 class Contact {
-    public Integer contact_id = 0;
-    public String firstName = "";
-    public String lastName = "";
-    public String email = "";
-    public Boolean enabled = true;
+    public final Integer contact_id;
+    public final String firstName;
+    public final String lastName;
+    public final String email;
+    public final Boolean enabled;
 
     public Contact(Integer contact_id,
                    String firstName,

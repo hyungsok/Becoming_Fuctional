@@ -62,6 +62,8 @@ class Main {
         }
     }
 
+
+
     /**
      * 메인 클래스
      *
@@ -73,7 +75,15 @@ class Main {
                 "도 되니 부담없이 02-2128-8731으로 전화주시면 안내해 드리겠습니다.\n" +
                 "감사합니다.\n" +
                 "고객님의 평생 파트너 ‘한빛증권’"
-        eachEnabledContact( { contact -> contact.sendEmail(msg)})
+        eachEnabledContact({ contact -> contact.sendEmail(msg)})
+        println("--------------------------------------------------")
+
+        def ids = new ArrayList<Integer>()
+        for (index in 0..1) {
+            ids.add(1000 + index)
+        }
+        Customer.setContractForCustomerList(ids, false)
+                .each {customer -> println("contract >> " + customer.name + " : " + customer.contract.enabled)}
     }
 }
 
