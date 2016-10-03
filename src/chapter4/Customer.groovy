@@ -79,47 +79,52 @@ public class Customer {
         }
     }
 
-    public static List<Customer> updateCustomerByIdList(List<Integer> ids, Closure cls) {
-        Customer.allCustomers.collect { customer ->
-            if(ids.indexOf(customer.id) >= 0) {
-                cls(customer)
-            } else {
-                customer
-            }
+public static List<Customer> updateCustomerByIdList(List<Integer> ids, Closure cls) {
+    Customer.allCustomers.collect { customer ->
+        if(ids.indexOf(customer.id) >= 0) {
+            cls(customer)
+        } else {
+            customer
         }
     }
+}
 
-    public static List<Customer> updateContact(Integer customer_id, Integer contact_id, Closure cls) {
-        updateCustomerByIdList([customer_id], { customer ->
-            new Customer(
-                    customer.id,
-                    customer.name,
-                    customer.state,
-                    customer.domain,
-                    customer.enabled,
-                    customer.contract,
-                    customer.contacts.collect { contact ->
-                        if(contact.contact_id == contact_id) {
-                            cls(contact)
-                        } else {
-                            contact
-                        }
+public static List<Customer> updateContact(Integer customer_id, Integer contact_id, Closure cls) {
+    updateCustomerByIdList([customer_id], { customer ->
+        new Customer(
+                customer.id,
+                customer.name,
+                customer.state,
+                customer.domain,
+                customer.enabled,
+                customer.contract,
+                customer.contacts.collect { contact ->
+                    if(contact.contact_id == contact_id) {
+                        cls(contact)
+                    } else {
+                        contact
                     }
-            )
-        })
-    }
+                }
+        )
+    })
+}
 
-    public static List<Customer> updateContractForCustomerList(List<Integer> ids, Closure cls) {
-        updateCustomerByIdList(ids, { customer ->
-            new Customer(
-                    customer.customer_id,
-                    customer.name,
-                    customer.state,
-                    customer.domain,
-                    customer.enabled,
-                    cls(customer.contract),
-                    customer.contacts
-            )
-        })
-    }
+public static List<Customer> updateContractForCustomerList(List<Integer> ids, Closure cls) {
+    updateCustomerByIdList(ids, { customer ->
+        new Customer(
+                customer.customer_id,
+                customer.name,
+                customer.state,
+                customer.domain,
+                customer.enabled,
+                cls(customer.contract),
+                customer.contacts
+        )
+    })
+}
+
+
+
+
+
 }
