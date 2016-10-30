@@ -1,36 +1,12 @@
 package chapter4
-
 /**
  * Created by hyungsok7 on 2016. 9. 25..
  */
 class Main {
-    // init
-    static {
-        List<Contact> contacts = new ArrayList<>();
-        contacts.add(new Contact(1, "Lee", "Kevin", "hyungsok7@gmail.com", false));
-        contacts.add(new Contact(2, "Kim", "Rechard", "hyungsok7@gmail.com", false));
-        contacts.add(new Contact(3, "Choi", "Kim", "hyungsok7@gmail.com", false));
-        contacts.add(new Contact(4, "Lee", "Charlee", "hyungsok7@gmail.com", false));
-        contacts.add(new Contact(5, "Yoon", "Cadon", "hyungsok7@gmail.com", false));
-        contacts.add(new Contact(6, "Zoo", "Bernard", "hyungsok7@gmail.com", false));
-
-        for (int i = 0; i < 10; i++) {
-            Customer customer = new Customer(
-                    1000 + i,
-                    "name" + i,
-                    "state" + i,
-                    "domain" + i,
-                    i % 2 == 0,
-                    new Contract(Calendar.getInstance(), true),
-                    contacts
-            );
-            Customer.allCustomers.add(customer);
-        }
-    }
-
 
     /**
      * 고객들에게 이메일을 발송
+     *
      ● 이용 고객이다(Customer.enabled가 true).
      ● 계약이 유효하다(Contract.enabled가 true).
      ● 계약은 만료 전이다.
@@ -38,14 +14,15 @@ class Main {
      * @param msg
      */
     public static void sendEnabledCustomersEmails(String msg) {
-        Customer.allCustomers.findAll {
+        Constants.allCustomers.findAll {
             customer -> customer.enabled && customer.contract.enabled
-        }.each { customer ->
-            customer.contacts.findAll {
-                contact -> contact.enabled
-            }.each { contact ->
-                contact.sendEmail(msg)
-            }
+        }.each {
+            customer ->
+                customer.contacts.findAll {
+                    contact -> contact.enabled
+                }.each {
+                    contact -> contact.sendEmail(msg)
+                }
         }
     }
 
@@ -55,15 +32,40 @@ class Main {
      * @param cls
      */
     public static void eachEnabledContact(Closure cls) {
-        Customer.allCustomers.findAll { customer ->
-            customer.enabled && customer.contract.enabled
-        }.each { customer ->
-            customer.contacts.each(cls)
+        Constants.allCustomers.findAll {
+            customer -> customer.enabled && customer.contract.enabled
+        }.each {
+            customer -> customer.contacts.each(cls)
         }
     }
 
-
-
+    /**
+     *
+     * @param ids
+     * @param status
+     * @return
+     */
+    public static List<Customer> getContractForCustomerList(List<Integer> ids, Boolean status) {
+        Constants.allCustomers.collect {
+            customer ->
+                if (ids.indexOf(customer.id) >= 0) {
+                    new Customer(
+                            customer.id,
+                            customer.name,
+                            customer.state,
+                            customer.domain,
+                            customer.enabled,
+                            new Contract(
+                                    customer.contract.begin_date,
+                                    status
+                            ),
+                            customer.contacts
+                    )
+                } else {
+                    customer
+                }
+        }
+    }
     /**
      * 메인 클래스
      *
@@ -75,14 +77,12 @@ class Main {
                 "도 되니 부담없이 02-2128-8731으로 전화주시면 안내해 드리겠습니다.\n" +
                 "감사합니다.\n" +
                 "고객님의 평생 파트너 ‘한빛증권’"
-        eachEnabledContact({ contact -> contact.sendEmail(msg)})
-        println("--------------------------------------------------")
 
-        def ids = new ArrayList<Integer>()
-        for (index in 0..1) {
-            ids.add(1000 + index)
-        }
-        Customer.setContractForCustomerList(ids, false)
+        sendEnabledCustomersEmails(msg)
+
+        eachEnabledContact({ contact -> contact.sendEmail(msg)})
+
+        getContractForCustomerList([1000, 1001], false)
                 .each {customer -> println("contract >> " + customer.name + " : " + customer.contract.enabled)}
     }
 }

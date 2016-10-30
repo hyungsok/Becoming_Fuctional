@@ -1,28 +1,39 @@
 package chapter4
 
 /**
- * Created by hyungsok7 on 2016. 9. 25..
+ * 연락처
  */
 class Contact {
-    public final Integer contact_id;
+
+    // 연락처 ID
+    public final Integer id;
+    // 이름
     public final String firstName;
+    // 성씨
     public final String lastName;
+    // 이메일 주소
     public final String email;
+    // 사용여부
     public final Boolean enabled;
 
-    public Contact(Integer contact_id,
+    public Contact(Integer id,
                    String firstName,
                    String lastName,
                    String email,
                    Boolean enabled) {
 
-        this.contact_id = contact_id;
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.enabled = enabled;
     }
 
+    /**
+     * 현재 연락처 이메일 보내기
+     *
+     * @param msg
+     */
     public void sendEmail(String msg) {
         println("--------------------------------------------------")
         msg = String.format(msg, firstName, lastName)

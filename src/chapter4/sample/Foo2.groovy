@@ -1,4 +1,4 @@
-package chapter4.foo
+package chapter4.sample
 
 class Foo {
     String str
