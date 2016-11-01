@@ -19,7 +19,7 @@ import chapter4.Customer
  *
  * 꼬리제귀 : 재귀의 탈을 쓰고 있는 반복문
  *
- * 1. 그루비 : 릴 트램펄린trampolining 기법으로 처리
+ * 1. 그루비 : 릴 트램펄린 trampolining 기법으로 처리
  * 2. 스칼라 ( 그루비는 아래와같은 건 없음 )
  *  @tailrec : 꼬리재귀함수 지정, 구현을 tail recursive하게 구현하지 않았을 경우에는 에러를 발생
  *   - 컴파일러가 꼬리재귀를 인식하고 최적화하면서 일반 재귀가 가지는 단점을 없애줌
@@ -37,7 +37,7 @@ class MainGroovy {
      */
     public static int countEnabledCustomersWithNoEnabledContacts(List<Customer> customers) {
         return customers.findAll({
-                    customer -> return customer.enabled && (customer.contacts.find({ contact -> contact.enabled }) == null)
+                    customer -> customer.enabled && (customer.contacts.find({ contact -> contact.enabled }) == null)
                 }).size()
     }
 
