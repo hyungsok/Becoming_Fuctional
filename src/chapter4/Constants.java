@@ -16,9 +16,9 @@ public class Constants {
         List<Contact> contacts = new ArrayList<>();
         contacts.add(new Contact(1, "Lee", "Kevin", "Kevin@gmail.com", false));
         contacts.add(new Contact(2, "Kim", "Rechard", "Rechard@gmail.com", false));
-        contacts.add(new Contact(3, "Choi", "Kim", "Kim@gmail.com", false));
+        contacts.add(new Contact(3, "Choi", "Kim", "Kim@gmail.com", true));
         contacts.add(new Contact(4, "Lee", "Charlee", "Charlee@gmail.com", false));
-        contacts.add(new Contact(5, "Yoon", "Cadon", "Cadon@gmail.com", false));
+        contacts.add(new Contact(5, "Yoon", "Cadon", "Cadon@gmail.com", true));
         contacts.add(new Contact(6, "Zoo", "Bernard", "Bernard@gmail.com", false));
 
         for (int i = 0; i < 10; i++) {

@@ -14,7 +14,10 @@ import scala.annotation.tailrec
   */
 object MainScala {
 
-  class Customer(var id: Int, var name: String, var state: String, var domain: String, var enabled: Boolean, var contract: Contract, var contacts: List[Contact])
+  class Customer(var id: Int, var name: String, var state: String, var domain: String, var enabled: Boolean, var contract: Contract, var contacts: List[Contact]) {
+    // 느긋한 enabledContacts 멤버
+    lazy val enabledContacts = contacts.filter { contact => contact.enabled }
+  }
 
   class Contact(var id: Int, var firstName: String, var lastName: String, var email: String, var enabled: Boolean)
 
@@ -40,20 +43,20 @@ object MainScala {
   )
 
   @tailrec
-  def countEnabledCustomersWithNoEnabledContacts(customers : List[Customer], sum : Int) : Int = {
-    if(customers.isEmpty) {
+  def countEnabledCustomersWithNoEnabledContacts(customers: List[Customer], sum: Int): Int = {
+    if (customers.isEmpty) {
       return sum
     } else {
-      val addition : Int =
-        if(customers.head.enabled && customers.head.contacts.count(contact => contact.enabled) > 0) 1
+      val addition: Int =
+        if (customers.head.enabled && customers.head.contacts.count(contact => contact.enabled) > 0) 1
         else 0
       return countEnabledCustomersWithNoEnabledContacts(customers.tail, sum + addition)
     }
   }
 
   /**
-   * 한빛증권 사세가 확장되면서 팀장님은 현재 연락처가 없는 이용 고객의 인원수를 세어보라고 지시
-   */
+    * 한빛증권 사세가 확장되면서 팀장님은 현재 연락처가 없는 이용 고객의 인원수를 세어보라고 지시
+    */
   def main(args: Array[String]): Unit = {
     println(countEnabledCustomersWithNoEnabledContacts(allCustomers, 0))
   }

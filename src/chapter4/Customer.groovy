@@ -40,4 +40,24 @@ public class Customer {
         this.contacts = contacts;
     }
 
+    // 데이터 중복을 제거한, 전체 현재 연락처 조회 메소드
+    private List<Contact> enabledContacts = null;
+
+    public synchronized List<Contact> getEnabledContacts() {
+        if (this.enabledContacts == null) {
+            this.enabledContacts = this.contacts.findAll { contact ->
+                println "getEnabledContacts() " + contact.id
+                contact.enabled
+            }
+        }
+        return this.enabledContacts;
+    }
+
+    // 느긋한 멤버로 변경
+    // @Lazy
+    public volatile List<Contact> enabledContactsLazy = contacts.findAll { contact ->
+        println "enabledContactsLazy : " + contact.id
+        contact.enabled
+    }
 }
+
