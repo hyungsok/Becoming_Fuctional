@@ -44,17 +44,17 @@ public class Customer {
     private List<Contact> enabledContacts = null;
 
     public synchronized List<Contact> getEnabledContacts() {
-        if (this.enabledContacts == null) {
+//        if (this.enabledContacts == null) {
             this.enabledContacts = this.contacts.findAll { contact ->
                 println "getEnabledContacts() " + contact.id
                 contact.enabled
             }
-        }
+//        }
         return this.enabledContacts;
     }
 
     // 느긋한 멤버로 변경
-    // @Lazy
+    @Lazy
     public volatile List<Contact> enabledContactsLazy = contacts.findAll { contact ->
         println "enabledContactsLazy : " + contact.id
         contact.enabled
