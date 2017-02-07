@@ -45,12 +45,12 @@ object MainScala {
   @tailrec
   def countEnabledCustomersWithNoEnabledContacts(customers: List[Customer], sum: Int): Int = {
     if (customers.isEmpty) {
-      return sum
+      sum
     } else {
       val addition: Int =
         if (customers.head.enabled && customers.head.contacts.count(contact => contact.enabled) > 0) 1
         else 0
-      return countEnabledCustomersWithNoEnabledContacts(customers.tail, sum + addition)
+      countEnabledCustomersWithNoEnabledContacts(customers.tail, sum + addition)
     }
   }
 

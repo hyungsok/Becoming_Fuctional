@@ -80,10 +80,10 @@ class Main {
 
         sendEnabledCustomersEmails(msg)
 
-        eachEnabledContact({ contact -> contact.sendEmail(msg)})
+        eachEnabledContact({ contact -> contact.sendEmail(msg) })
 
         getContractForCustomerList([1000, 1001], false)
-                .each {customer -> println("contract >> " + customer.name + " : " + customer.contract.enabled)}
+                .each { customer -> println("contract >> " + customer.name + " : " + customer.contract.enabled) }
     }
 }
 

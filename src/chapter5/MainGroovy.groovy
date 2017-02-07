@@ -94,7 +94,7 @@ class MainGroovy {
      *  6. 더는 TrampolineClosure이 반환되지 않을때까지 같은 과정(1~5번)을 반복
      *
      *
-     * 꼬리 재귀로 깊이 이슈는 해결했지만, 문법적으로 그루비는 일단 변수를 정의하고 변수에 할당한 클로저에 .trampoline()을 호출해야 하는 문제가 있으서 귀찮음.
+     * 꼬리 재귀로 깊이 이슈는 해결했지만, 문법적으로 그루비는 일단 변수를 정의하고 변수에 할당한 클로저에 .trampoline()을 호출해야 하는 문제가 있어서 귀찮음.
      */
     public static def countEnabledCustomersWithNoEnabledContactsTrampoline = { List<Customer> customers, int sum ->
         if(customers.isEmpty()) {
