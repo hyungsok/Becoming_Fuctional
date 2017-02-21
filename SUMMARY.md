@@ -1,5 +1,7 @@
 # Summary
 
 * [Introduction](README.md)
-* [8. patten match](patten-match.md)
+* [patten match](patten-match.md)
+* [funtional OOP](funtional-oop.md)
+* [currying](currying.md)
 
