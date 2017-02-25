@@ -1,5 +1,7 @@
 # **함수형 OOP**
 
+많은 OOP의 개념과 아이디어 \(디자인패턴\)를 계속 살리면서 작성해야할 코드를 줄일 수 있는 방법에 대한 이야기.
+
 > 내가 이해한 함수형 프로그래밍은 최대한 순수함수를 작성하는 것.
 >
 > 가능한 입력과 출력의 관계를 기술하게 끔 추론하는 프로그래밍 인것 같다.
@@ -132,8 +134,6 @@ class Contact(val contact_id: Integer,
 * 사용자에게 모든 가능한 옵션을 보여준다.
 * 사용자의 입력을 해석한다.
 
-
-
 ```Scala
 case class CommandLineOption(description: String, func: () => Unit)
 
@@ -163,7 +163,7 @@ object CommandLine {
         println(contact.firstName + " : " + contact.email))
     })
   }
-  
+
   // 커맨드 옵션 
   val options: Map[String, CommandLineOption] = Map(
     "1" -> CommandLineOption("고객 신규 추가", createCustomer),
@@ -192,6 +192,8 @@ object CommandLine {
   }
 }
 ```
+
+고객 신규 추가’와 ‘고객 목록 조회’라는 두 옵션만 보더라도 이미 존재 하는 함수를 참조하여 캡슐화를 무너뜨리지 않고도 기존 작성된 함수를 재사용할 수 있다. 
 
 
 
