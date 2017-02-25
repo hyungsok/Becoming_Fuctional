@@ -1,22 +1,20 @@
 # **함수형 OOP**
 
-> 내가 이해한 함수형 프로그래밍은 최대한 순수함수를 작성하는 것. 가능한 입력과 출력의 관계를 기술하게 끔 추론하는 프로그래밍 인것 같다.
+> 내가 이해한 함수형 프로그래밍은 최대한 순수함수를 작성하는 것.
 >
-> 자연스럽게 객체에 데이터를 입력에 의해 변경하고 그에 맞는 액션을 취하도록 그렇게 개발해왔기때문에  
+> 가능한 입력과 출력의 관계를 기술하게 끔 추론하는 프로그래밍 인것 같다.
+>
+> 자연스럽게 객체에 데이터를 입력에 의해 변경하고 그에 맞는 액션을 취하도록 그렇게 개발해왔기때문에
 >
 > 객체를 바꾸지도 않을거면서 왜 가지고 있어야 하는가? 이런 의문을 항상 갖는다.
 >
-> 불변객체, 순수함수, immutable에 대한 개념은 
+> 불변객체, 순수함수, immutable에 대한 개념은 코드작성을 통해서 조금씩 익히는 수 밖에는 답이 없는것 같다.
 >
-> 코드작성을 통해서 조금씩 익히는 수 밖에는 답이 없는것 같다.
-
-
-
-**"객체는 단지 데이터 집합을 갭슐화 시킨 그릇에 불과하다."**
-
-> 객체는 행위를 하는 뭔가가 아니라, 데이터를 담는 그릇\(Contain\)이라는 사실을 이해하도록 설명을 돕고있다.
+> 특히 이번 장에 이야기 할려고 하는 것은  **"객체는 단지 데이터 집합을 캡슐화 시킨 그릇에 불과하다." **라는 것이다.** **
 >
-> 함수형 프로그래밍과 OOP가 서로 잘 어울릴수 있는 예를 보여주고 있다.
+> 객체는 행위를 하는 뭔가가 아니라, 데이터를 담는 그릇\(Contain\)이라는 사실를 코드를 통해 이해하도록 돕고있다.
+>
+> 함수형 프로그래밍과 OOP가 서로 잘 어울릴수 있는 예시라고 하는데 한번 살펴볼까나.
 
 ### **정적 캡슐화**
 
@@ -136,19 +134,64 @@ class Contact(val contact_id: Integer,
 
 
 
-함수로 방문자 패턴을 구현 
+```Scala
+case class CommandLineOption(description: String, func: () => Unit)
 
+object CommandLine {
+  // 고객 신규 추가
+  def createCustomer(): Unit = {
+    Customer.allCustomers = Customer.createCustomer(
+      CommandLine.askForInput("Name"),
+      CommandLine.askForInput("State"),
+      CommandLine.askForInput("Domain")
+    ).toList ::: Customer.allCustomers
+  }
 
+  // 고객 목록 조회
+  def showCustomerList(): Unit = {
+    Customer.allCustomers.foreach(customer =>
+      println(customer.name)
+    )
+  }
 
+  // 전체 이용 고객의 현재 연락처 목록 조회
+  def showContactList(): Unit = {
+    Customer.allCustomers.filter({ customer =>
+      customer.enabled && customer.contract.enabled
+    }).foreach({ customer =>
+      customer.contacts.foreach(contact =>
+        println(contact.firstName + " : " + contact.email))
+    })
+  }
+  
+  // 커맨드 옵션 
+  val options: Map[String, CommandLineOption] = Map(
+    "1" -> CommandLineOption("고객 신규 추가", createCustomer),
+    "2" -> CommandLineOption("고객 목록 조회", showCustomerList),
+    "3" -> CommandLineOption("전체 이용 고객의 현재 연락처 목록 조회", showContactList),
+    "q" -> CommandLineOption("종료", sys.exit)
+  )
 
+  def askForInput(question: String): String = {
+    print(question + ": ")
+    readLine()
+  }
 
+  def prompt() = {
+    options.foreach(option => println(option._1 + ") " + option._2.description))
+    options.get(askForInput("Option").trim.toLowerCase) match {
+      case Some(CommandLineOption(_, exec)) => exec()
+      case _ => println("Invalid input")
+    }
+  }
 
-
-
-
-
-
-
+  def main(args: Array[String]) = {
+    while (true) {
+      prompt()
+    }
+  }
+}
+```
 
 
 
