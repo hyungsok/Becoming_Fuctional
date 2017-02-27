@@ -123,6 +123,7 @@ class Contact(val contact_id: Integer,
 추가기능 요청
 
 * 화면에 질문을 보여주고 사용자로부터 입력을 받는다. \( CommandLineOption 클래스 작성 \)
+  * 명령어와 일급함수와 매치하여 CommandLineOption 클래스를 구성한다.
 * 사용자에게 모든 가능한 옵션을 보여준다. \( Map&lt;string, CommandLineOption&gt; 으로 옵션 데이터 추가 \)
 * 사용자의 입력을 해석한다. \( Pattern Matching 통해서 처리 \)
 
