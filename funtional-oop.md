@@ -188,9 +188,26 @@ object CommandLine {
 
 고객 신규 추가’와 ‘고객 목록 조회’라는 두 옵션만 보더라도 이미 존재 하는 함수를 참조하여 캡슐화를 무너뜨리지 않고도 기존 작성된 함수를 재사용할 수 있다. 그러면 관리할 클래스의 수는 줄고 코드의 가독성이 높아진다.
 
-### **정리**
+
+
+## **정리**
 
 우리가 흔히 알고 있는 디자인 패턴을 함수형 관점으로 구현이 가능
+
+기존의 우리가 알고 있는 OOP관점으로 프로그래밍하다보면 관리해야할 클래스의 수가 늘어나게 되지만 
+
+함수형으로 개발하면 클래스의 수를 최대한 많이 줄일수있고 코드의 가독성이 높아지는 장점이 있음.
+
+
+
+#### 디자인 패턴 잘 정리된 사이트
+
+* 자바 : [http://www.tutorialspoint.com/design\_pattern](http://www.tutorialspoint.com/design_pattern/)
+* 클로져 : [http://clojure.or.kr/docs/clojure-and-gof-design-patterns.html](http://clojure.or.kr/docs/clojure-and-gof-design-patterns.html)
+
+
+
+#### 디자인 패턴
 
 * 커맨드 패턴 - 함수로 구현하면 분리된 객체를 여러개 만들필요없이 실행함수로서 커맨드를 반환하기만 하면됨 
   * ```Scala
