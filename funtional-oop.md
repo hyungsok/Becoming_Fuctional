@@ -6,13 +6,28 @@
 >
 > * 패턴이 언어에 흡수
 > * 패턴 해법이 함수형 패러다임에도 존재하지만, 구체적인 구현 방식은 다름
-> * 패턴 해법이 패러다임에 없는 기능으로 구현?
+> * 패턴 해법이 패러다임에 없는 기능으로 구현 \( 자바로는 불가능한 \)
+
+### 함수 수준의 재사용
+
+함수형 언어는 객체지향 언어들보다 더 큰 단위로 재사용함. 매개변수로 커스터마이즈되는 공통된 작업을 추출해 냄
+
+![](/assets/스크린샷%202017-02-28%20오전%2011.52.24.png)
+
+디자인 패턴으로 해결할 수 있는 문제들은 아주 특정된 문제에만 적용되기때문에 사용범위는 좁을 수밖에 없음.
+
+디자인 패턴의 존재 목적은 자바 가지고 있는 언어의 결함을 메꾸기 위함.\( 뼈대뿐인 클래스에 래핑하지 않고서는 행동을 전달할 수 없는 한계 \)
+
+### 
 
 ### **정적 캡슐화**
 
-* 어떤 양식으로 이메일을 보낼수있도록 이메일 발송 로직을 따로 추출해서 리펙토링하여 개선하라
-* 전략패턴을 함수형 언어로 리펙토링 처리
-  * [https://www.tutorialspoint.com/design\_pattern/strategy\_pattern.htm](https://www.tutorialspoint.com/design_pattern/strategy_pattern.htm)
+* 객체는 단지 데이터 집합을 캡슐화 시킨 그릇에 불과하다. 
+  * 객체로 인자를 받는 정적 함수로 동작하게 하면서 객체를 핸들링
+* 업무지시
+  * 어떤 양식으로 이메일을 보낼수있도록 이메일 발송 로직을 따로 추출해서 리펙토링하여 개선하라
+  * 전략패턴을 함수형 언어로 리펙토링 처리
+    * [https://www.tutorialspoint.com/design\_pattern/strategy\_pattern.htm](https://www.tutorialspoint.com/design_pattern/strategy_pattern.htm)
 
 **원본**
 
@@ -47,6 +62,7 @@ object Email {
         true
     }
 }
+
 ```
 
 > 스칼라는 정적멤버\(필드 + 메소드\)를 싱글톤형태의 동반객체 \(Companion object\)에 담아놓으면 동일 소스파일에서 동반 객체와 동반 클래스는 서로 비공개 멤버까지 마음대로 참조할수가 있다.
@@ -67,10 +83,12 @@ class Contact(val contact_id: Integer,
 
 ### 객체는 그릇이다.
 
-* 어떤 이메일은 "친애하는~씨께"로 사직해야한다는 추가요청, Subject에 이름을 표시해야한다는 추가 요청
-* Email 클래스를 확실하게 그릇으로 여기질수 있도록 수정
-  * 이메일생성에 필요한 필드만 포함
-  * 이메일발송 기능은 없음
+* 함수형 프로그래밍과 OOP가 서로 잘어울릴수 있게 만든 방안
+* 업무지시
+  * 어떤 이메일은 "친애하는~씨께"로 사직해야한다는 추가요청, Subject에 이름을 표시해야한다는 추가 요청
+  * Email 클래스를 확실하게 그릇으로 여기질수 있도록 수정
+    * 이메일생성에 필요한 필드만 포함
+    * 이메일발송 기능은 없음
 
 ```
 object Email {
@@ -120,12 +138,13 @@ class Contact(val contact_id: Integer,
 
 ### 코드는 데이터다
 
-추가기능 요청
-
-* 화면에 질문을 보여주고 사용자로부터 입력을 받는다. \( CommandLineOption 클래스 작성 \)
-  * 명령어와 일급함수와 매치하여 CommandLineOption 클래스를 구성한다.
-* 사용자에게 모든 가능한 옵션을 보여준다. \( Map&lt;string, CommandLineOption&gt; 으로 옵션 데이터 추가 \)
-* 사용자의 입력을 해석한다. \( Pattern Matching 통해서 처리 \)
+* 전략 디자인 패턴의 확장 \( 일급함수를 매개변수로 전달 \)
+  * 디자인패턴 : [https://www.tutorialspoint.com/design\_pattern/strategy\_pattern.htm](https://www.tutorialspoint.com/design_pattern/strategy_pattern.htm)
+* 업무지시
+  * 화면에 질문을 보여주고 사용자로부터 입력을 받는다. \( CommandLineOption 클래스 작성 \)
+    * 명령어와 일급함수와 매치하여 CommandLineOption 클래스를 구성한다.
+  * 사용자에게 모든 가능한 옵션을 보여준다. \( Map&lt;string, CommandLineOption&gt; 으로 옵션 데이터 추가 \)
+  * 사용자의 입력을 해석한다. \( Pattern Matching 통해서 처리 \)
 
 ```Scala
 case class CommandLineOption(description: String, func: () => Unit)
@@ -188,24 +207,18 @@ object CommandLine {
 
 고객 신규 추가’와 ‘고객 목록 조회’라는 두 옵션만 보더라도 이미 존재 하는 함수를 참조하여 캡슐화를 무너뜨리지 않고도 기존 작성된 함수를 재사용할 수 있다. 그러면 관리할 클래스의 수는 줄고 코드의 가독성이 높아진다.
 
-
-
 ## **정리**
 
 우리가 흔히 알고 있는 디자인 패턴을 함수형 관점으로 구현이 가능
 
-기존의 우리가 알고 있는 OOP관점으로 프로그래밍하다보면 관리해야할 클래스의 수가 늘어나게 되지만 
+기존의 우리가 알고 있는 OOP관점으로 프로그래밍하다보면 관리해야할 클래스의 수가 늘어나게 되지만
 
 함수형으로 개발하면 클래스의 수를 최대한 많이 줄일수있고 코드의 가독성이 높아지는 장점이 있음.
-
-
 
 #### 디자인 패턴 잘 정리된 사이트
 
 * 자바 : [http://www.tutorialspoint.com/design\_pattern](http://www.tutorialspoint.com/design_pattern/)
 * 클로져 : [http://clojure.or.kr/docs/clojure-and-gof-design-patterns.html](http://clojure.or.kr/docs/clojure-and-gof-design-patterns.html)
-
-
 
 #### 디자인 패턴
 
