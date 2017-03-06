@@ -112,19 +112,12 @@ class CalcAdds implements Calc {
 }
 
 class StrategyTest {
-
     def listOfStrategies = [new CalcMult(), new CalcAdds()]
 
-
     @Test
-
     public void product_verifier() {
-
-        listOfStrategies.each { s ->
- assertEquals(10, s.product(5, 2))
-} 
+        listOfStrategies.each { s -> assertEquals(10, s.product(5, 2))} 
     }
-
 }
 ```
 
@@ -132,23 +125,15 @@ class StrategyTest {
 
 ```
 @Test
-public void exp_verifier() {
-
+public void product_verifier() {
     def listOfExp = [
-
         {n, m -> n * m },
-
         {n, m ->
-
             def result = 0
             n.times { result += m }
-            result
+            result }]
 
-}]
-
-    listOfExp.each { e ->
- assertEquals(10, e(5, 2))
- } 
+    listOfExp.each { e -> assertEquals(10, e(5, 2)) } 
  }
 ```
 
@@ -214,9 +199,12 @@ class ComputerFactory {
 }
 
 @Test
-public void flyweight_computers() {  
-  def bob = new AssignedComputer(ComputerFactory.instance.ofType("MacBookPro6_2"), "Bob")  
-  def steve = new AssignedComputer(ComputerFactory.instance.ofType("MacBookPro6_2"),  "Steve") 
+public void flyweight_computers() {
+
+  def bob = new AssignedComputer(ComputerFactory.instance.ofType("MacBookPro6_2"), "Bob")
+
+  def steve = new AssignedComputer(ComputerFactory.instance.ofType("MacBookPro6_2"),
+  "Steve") 
   assertTrue(bob.computerType == steve.computerType)
 }
 ```
@@ -224,8 +212,10 @@ public void flyweight_computers() {
 **플라이웨이트를 Momoize한 함수정의한 버전**
 
 ```Groovy
-def computerOf = { type ->  
-    def of = [ MacBookPro6_2: new Laptop(), SunTower: new Desktop()]  
+def computerOf = { type ->
+
+    def of = [ MacBookPro6_2: new Laptop(), SunTower: new Desktop()]
+
     return of[type]
 }
 
@@ -243,9 +233,9 @@ public void flyweight_computers() {
 >
 > 전통적인 플라이웨이트 패턴에서는 새클래스를 펙토리로 생성하여 사용하는데 함수형버전에서는 하나의 메소드를 구현한 후 메모아이즈 버전을 리턴하면 플라이웨이트 패턴의 의미를 보존하면서 아주 간단하게 구현을 하였음.
 
+#### 
 
-
-
+#### 
 
 #### 디자인 패턴 잘 정리된 사이트
 
