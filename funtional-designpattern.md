@@ -186,6 +186,7 @@ class Laptop extends Computer {
   def dockingBay
 }
 
+// 컴퓨터와 사용자연계해주는 클래스 
 class AssignedComputer {
   def computerType
   def userId
@@ -211,11 +212,40 @@ class ComputerFactory {
     types[computer]
   }
 }
+
+@Test
+public void flyweight_computers() {  
+  def bob = new AssignedComputer(ComputerFactory.instance.ofType("MacBookPro6_2"), "Bob")  
+  def steve = new AssignedComputer(ComputerFactory.instance.ofType("MacBookPro6_2"),  "Steve") 
+  assertTrue(bob.computerType == steve.computerType)
+}
 ```
 
-#### 
+**플라이웨이트를 Momoize한 함수정의한 버전**
 
-#### 
+```Groovy
+def computerOf = { type ->  
+    def of = [ MacBookPro6_2: new Laptop(), SunTower: new Desktop()]  
+    return of[type]
+}
+
+def computerOfType = computerOf.memoize()
+
+@Test
+public void flyweight_computers() {
+  def sally = new AssignedComputer(computerOfType("MacBookPro6_2"), "Sally")
+  def betty = new AssignedComputer(computerOfType("MacBookPro6_2"), "Betty")
+  assertTrue sally.computerType == betty.computerType
+}
+```
+
+> Memozies된 함수는 런타임 값을 캐시할 수 있게 해주는 함수임.
+>
+> 전통적인 플라이웨이트 패턴에서는 새클래스를 펙토리로 생성하여 사용하는데 함수형버전에서는 하나의 메소드를 구현한 후 메모아이즈 버전을 리턴하면 플라이웨이트 패턴의 의미를 보존하면서 아주 간단하게 구현을 하였음.
+
+
+
+
 
 #### 디자인 패턴 잘 정리된 사이트
 
