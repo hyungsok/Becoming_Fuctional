@@ -22,6 +22,8 @@
 
 함수형 프로그래머들은 위의 그림처럼 큰단위의 재사용 매커니즘을 추출하려고 함.
 
+### 
+
 ### **템플릿 메서드**
 
 전통적인 탬플릿 메소드 패턴은 하위 클래스가 추상클래스에서 정해준 메서드를 구현해야함.
@@ -75,6 +77,8 @@ class Customer {
 
 > 고계함수가 있기 때문에 커맨드패턴, 탬플릿 패턴과 같은 고전적인 패턴에서 자주 사용하는 보일러플레이트 코드가 필요없어짐.
 
+### 
+
 ### **전략\(Strategy\) 패턴**
 
 각자 캡슐화되어 서로 교환 가능한 알고리즘 군으로 정의하여 클라이언트에 상관없이 바꿔서 사용할 수 있게 해주는 패턴.
@@ -122,15 +126,69 @@ calcAdds(5, 2)
 
 > 전통적인 방법은 같은 클래스나 인터페이스를 상속해야하는등 각 전략에 이름과 구조를 정해야되는 제약사항이 존재함
 
+#### 
+
+### 플라이웨이트\(flyweight\) 패턴
+
+플라이웨이트 패턴은 많은 수의 조밀한 객체의 참조들을 공유하는 최적화 기법.  참조들을 객체 풀에 생성하여 특정 뷰를 위해 사용함.
+
+플라이웨이트는 같은 자료형의 모든 객체를 대표하는 하나의 객체를 만들어 각 사용자가 원하는 클래스의 참조를 가지는 식으로 작성됨.
 
 
 
+**그루비로 작성한 플라이웨이트 패턴 **
+
+```Groovy
+class Computer {
+  def type
+  def cpu
+  def memory
+  def hardDrive
+  def cd
+}
+
+class Desktop extends Computer {
+  def driveBays
+  def fanWattage
+  def videoCard
+}
+
+class Laptop extends Computer {
+  def usbPorts
+  def dockingBay
+}
+
+class AssignedComputer {
+  def computerType
+  def userId
+
+  public AssignedComputer(computerType, userId) {
+    this.computerType = computerType
+    this.userId = userId
+  }
+}
+
+@Singleton(strict=false) class ComputerFactory {
+  def types = [:]
+
+  private ComputerFactory() {
+    def laptop = new Laptop()
+    def tower = new Desktop()
+    types.put("MacBookPro6_2", laptop)
+    types.put("SunTower",  tower)
+  }
+
+  def ofType(computer) {
+    types[computer]
+  }
+}
+```
 
 
 
+#### 
 
-
-
+#### 
 
 #### 디자인 패턴 잘 정리된 사이트
 
