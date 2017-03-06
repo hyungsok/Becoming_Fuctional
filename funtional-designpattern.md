@@ -24,15 +24,13 @@
 
 ### 
 
-### **템플릿 메서드**
+### **템플릿\(Template\) 메서드 패턴**
 
-전통적인 탬플릿 메소드 패턴은 하위 클래스가 추상클래스에서 정해준 메서드를 구현해야함.
-
-추상 메서드의 정의는 일종의 가이드 문서역할을 함. \( 팅빈 메서드를 구현할 수 있지만 \)
+* 탬플릿은 하나의 틀을 의미, 하나의 틀에서 만들어진 형태는 같은 것으로 간주.
+* 일반적으로 상위클래스에서 추상메서드를 통해 기능의 골격을 제공, 하위 클래스는 세부처리를 구체화함.
+* 추상 메서드의 정의는 일종의 가이드 문서역할을 함. \( 팅빈 메서드를 구현할 수 있지만 \)
 
 일급함수를 사용하면 불필요한 클래스를 없앨 수 있기 때문에 템플릿 메서드 디자인 패턴을 구현하기 쉬워짐.
-
-템플릿 메소드는 하나의 알고리즘의 뼈대만 정의, 세부 구현은 하위 클래스에 맡기도록 함.
 
 **그루비로 작성한 전형적인 템플릿 메서드 **
 
@@ -63,7 +61,7 @@ class Customer {
     def plan, checkCredit, checkInventtory, ship
 
     def CustomerBlocks() {
-        plan[]
+        plan = []
     }
 
     // 특별보호 접근자(?.) : 객체가 널인지 확인한 후에 메서드를 실행 
@@ -73,17 +71,24 @@ class Customer {
         ship?.call()
     }
 }
+
+// 일급함수를 이용하면 아래와 같이 심플하게 구현가능
+class UsCustomerBlocks extends Customer {  
+    def UsCustomerBlocks() {    
+        checkCredit = { plan.add "checking US customer credit" }    
+        checkInventory = { plan.add "checking US warehouses" }    
+        ship = { plan.add "Shipping to US address" }
+    } 
+}
 ```
 
-> 고계함수가 있기 때문에 커맨드패턴, 탬플릿 패턴과 같은 고전적인 패턴에서 자주 사용하는 보일러플레이트 코드가 필요없어짐.
 
-### 
 
 ### **전략\(Strategy\) 패턴**
 
-각자 캡슐화되어 서로 교환 가능한 알고리즘 군으로 정의하여 클라이언트에 상관없이 바꿔서 사용할 수 있게 해주는 패턴.
-
-일급함수를 사용하면 사용이 간편해짐.
+* strategy는 전략, 전술로 알고리즘을 뜻함.
+* 알고리즘을 사용하는 곳과 알고리즘을 제공하는 곳을 분리시킨 구조로 알고리즘을 동적으로 교체 수 있는 장점을 지님
+* 일급함수를 사용하면 사용이 간편하게 구현이 가능
 
 **그루비로 작성한 전통적인 전략 패턴**
 
@@ -104,37 +109,43 @@ class CalcAdds implements Calc {
     }
 }
 
-> new CalcMult().product(5, 2)
-10
-> new CalcAdds().product(5, 2)
-10
+class StrategyTest {  
+    def listOfStrategies = [new CalcMult(), new CalcAdds()]  
+    
+    @Test  
+    public void product_verifier() {    
+        listOfStrategies.each { s -> assertEquals(10, s.product(5, 2))} 
+    }
+}
 ```
 
 **개선된 함수형프로그래밍 전략패턴**
 
 ```
-def calcMult = (m, n) -> n * m
-def calcAdds = (m, n) -> {
-        def result = 0
-        n.times { result += m }
-        result
-    }
-
-calcMult(5, 2)
-calcAdds(5, 2)
+@Test
+public void exp_verifier() {  
+    def listOfExp = [      
+        {n, m -> n * m },      
+        {n, m ->        
+            def result = 0
+            n.times { result += m }
+            result
+        }]  
+    listOfExp.each { e -> assertEquals(10, e(5, 2)) } 
+ }
 ```
 
 > 전통적인 방법은 같은 클래스나 인터페이스를 상속해야하는등 각 전략에 이름과 구조를 정해야되는 제약사항이 존재함
+>
+> 코드블록을 일급함수로 사용하여, 이전 예제에서의 보일러플레이트 코드 대부분을 제거할 수 있음.
 
 #### 
 
 ### 플라이웨이트\(flyweight\) 패턴
 
-플라이웨이트 패턴은 많은 수의 조밀한 객체의 참조들을 공유하는 최적화 기법.  참조들을 객체 풀에 생성하여 특정 뷰를 위해 사용함.
-
-플라이웨이트는 같은 자료형의 모든 객체를 대표하는 하나의 객체를 만들어 각 사용자가 원하는 클래스의 참조를 가지는 식으로 작성됨.
-
-
+* flyweight는 '\(권투·레슬링 등의\) 플라이급 선수\(보통 체중 48~51kg사이\)'를 말함.
+* 인스턴스를 많이 생성한다면 new가 많아지고 이는 메모리 사용량이 많아짐을 의미.
+* 메모리 사용량을 줄이기 위한 방법으로, 인스턴스를 필요한 대로 다 만들어 쓰지 말고, 동일한 것은 가능하면 공유해서 [객체](http://terms.naver.com/entry.nhn?docId=3532992&ref=y)생성을 줄이자는 것
 
 **그루비로 작성한 플라이웨이트 패턴 **
 
@@ -183,8 +194,6 @@ class AssignedComputer {
   }
 }
 ```
-
-
 
 #### 
 
