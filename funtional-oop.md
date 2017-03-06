@@ -83,6 +83,8 @@ class Contact(val contact_id: Integer,
 }
 ```
 
+### 
+
 ### 객체는 그릇이다.
 
 * 함수형 프로그래밍과 OOP가 서로 잘어울릴수 있게 만든 방안
@@ -137,6 +139,8 @@ class Contact(val contact_id: Integer,
     }    
 }
 ```
+
+### 
 
 ### 코드는 데이터다
 
