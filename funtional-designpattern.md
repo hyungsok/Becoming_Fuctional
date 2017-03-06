@@ -201,14 +201,11 @@ class ComputerFactory {
 @Test
 public void flyweight_computers() {
   def bob = new AssignedComputer(ComputerFactory.instance.ofType("MacBookPro6_2"), "Bob")
-  
   def steve = new AssignedComputer(ComputerFactory.instance.ofType("MacBookPro6_2"),"Steve") 
-  
+
   assertTrue(bob.computerType == steve.computerType)
 }
 ```
-
-
 
 **메모이제이션 \(memoization\) 이란?**
 
@@ -248,42 +245,67 @@ println("\t square >> " + square(11))
 [ 결과값 ]
 ---------------------------------------------------
 ++ increment(false) value : 10
-	 increment >> 11
-	 incrementChange >> true
+     increment >> 11
+     incrementChange >> true
 ---------------------------------------------------
-	 increment >> 11
-	 incrementChange >> false
+     increment >> 11
+     incrementChange >> false
 ---------------------------------------------------
 ++ increment(false) value : 11
-	 increment >> 12
-	 incrementChange >> true
+     increment >> 12
+     incrementChange >> true
 ---------------------------------------------------
 ++ square() value : 10
-	 square >> 100
-	 square >> 100
+     square >> 100
+     square >> 100
 ++ square() value : 11
-	 square >> 121
+     square >> 121
 */
 ```
-
-
 
 **플라이웨이트를 Momoize한 함수정의한 버전**
 
 ```Groovy
+class Computer {
+  def type
+  def cpu
+  def memory
+  def hardDrive
+  def cd
+}
+
+class Desktop extends Computer {
+  def driveBays
+  def fanWattage
+  def videoCard
+}
+
+class Laptop extends Computer {
+  def usbPorts
+  def dockingBay
+}
+
+class AssignedComputer {
+  def computerType
+  def userId
+
+  public AssignedComputer(computerType, userId) {
+    this.computerType = computerType
+    this.userId = userId
+  }
+}
+
 def computerOf = { type ->
     def of = [ MacBookPro6_2: new Laptop(), SunTower: new Desktop()]
     return of[type]
 }
-
 def computerOfType = computerOf.memoize()
 
 @Test
 public void flyweight_computers() {
   def sally = new AssignedComputer(computerOfType("MacBookPro6_2"), "Sally")
-  
   def betty = new AssignedComputer(computerOfType("MacBookPro6_2"), "Betty")
-  
+
   assertTrue sally.computerType == betty.computerType
 }
 ```
