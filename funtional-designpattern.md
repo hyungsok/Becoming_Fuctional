@@ -200,22 +200,79 @@ class ComputerFactory {
 
 @Test
 public void flyweight_computers() {
-
   def bob = new AssignedComputer(ComputerFactory.instance.ofType("MacBookPro6_2"), "Bob")
-
-  def steve = new AssignedComputer(ComputerFactory.instance.ofType("MacBookPro6_2"),
-  "Steve") 
+  
+  def steve = new AssignedComputer(ComputerFactory.instance.ofType("MacBookPro6_2"),"Steve") 
+  
   assertTrue(bob.computerType == steve.computerType)
 }
 ```
+
+
+
+**메모이제이션 \(memoization\) 이란?**
+
+```Groovy
+@Field
+boolean incrementChange = false
+
+@Memoized
+int increment(int value) {
+    println("++ increment(" + incrementChange + ") value : " + value)
+    incrementChange = true
+    value + 1
+}
+
+def square = { value ->
+    println("++ square() value : " +  value)
+    value * value
+}.memoize()
+
+println("---------------------------------------------------")
+println("\t increment >> " + increment(10))
+println("\t incrementChange >> " + incrementChange)
+println("---------------------------------------------------")
+incrementChange = false
+println("\t increment >> " + increment(10))
+println("\t incrementChange >> " + incrementChange)
+println("---------------------------------------------------")
+println("\t increment >> " + increment(11))
+println("\t incrementChange >> " + incrementChange)
+
+println("---------------------------------------------------")
+println("\t square >> " + square(10))
+println("\t square >> " + square(10))
+println("\t square >> " + square(11))
+
+/** 
+[ 결과값 ]
+---------------------------------------------------
+++ increment(false) value : 10
+	 increment >> 11
+	 incrementChange >> true
+---------------------------------------------------
+	 increment >> 11
+	 incrementChange >> false
+---------------------------------------------------
+++ increment(false) value : 11
+	 increment >> 12
+	 incrementChange >> true
+---------------------------------------------------
+++ square() value : 10
+	 square >> 100
+	 square >> 100
+++ square() value : 11
+	 square >> 121
+*/
+```
+
+
 
 **플라이웨이트를 Momoize한 함수정의한 버전**
 
 ```Groovy
 def computerOf = { type ->
-
     def of = [ MacBookPro6_2: new Laptop(), SunTower: new Desktop()]
-
     return of[type]
 }
 
@@ -224,7 +281,9 @@ def computerOfType = computerOf.memoize()
 @Test
 public void flyweight_computers() {
   def sally = new AssignedComputer(computerOfType("MacBookPro6_2"), "Sally")
+  
   def betty = new AssignedComputer(computerOfType("MacBookPro6_2"), "Betty")
+  
   assertTrue sally.computerType == betty.computerType
 }
 ```
@@ -233,51 +292,7 @@ public void flyweight_computers() {
 >
 > 전통적인 플라이웨이트 패턴에서는 새클래스를 펙토리로 생성하여 사용하는데 함수형버전에서는 하나의 메소드를 구현한 후 메모아이즈 버전을 리턴하면 플라이웨이트 패턴의 의미를 보존하면서 아주 간단하게 구현을 하였음.
 
-
-
 여기까지....
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 #### 
 
