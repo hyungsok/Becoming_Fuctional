@@ -16,19 +16,15 @@
 
 뼈대뿐인 클래스에 래핑하지 않고서는 행동을 전달할 수 없는 한계가 있기 때문임.
 
-
-
 함수형 언어는 객체지향 언어들보다 더 큰 단위로 재사용함. 매개변수로 커스터마이즈되는 공통된 작업을 추출해 냄
 
 ![](/assets/스크린샷 2017-02-28 오후 12.10.27.png)
 
 함수형 프로그래머들은 위의 그림처럼 큰단위의 재사용 매커니즘을 추출하려고 함.
 
-
-
 ### **템플릿 메서드**
 
-전통적인 탬플릿 메소드 패턴은 하위 클래스가 추상클래스에서 정해준 메서드를 구현해야함. 
+전통적인 탬플릿 메소드 패턴은 하위 클래스가 추상클래스에서 정해준 메서드를 구현해야함.
 
 추상 메서드의 정의는 일종의 가이드 문서역할을 함. \( 팅빈 메서드를 구현할 수 있지만 \)
 
@@ -36,22 +32,20 @@
 
 템플릿 메소드는 하나의 알고리즘의 뼈대만 정의, 세부 구현은 하위 클래스에 맡기도록 함.
 
-
-
 **그루비로 작성한 전형적인 템플릿 메서드 **
 
 ```Groovy
 abstract class Customer {
     def plan
-    
+
     def Customer() {
         plan = []
     }
-    
+
     def abstract checkCredit()
     def abstract checkInventory()
     def abstract ship()
-    
+
     def process() {
         checkCredit()
         checkInventory()
@@ -65,11 +59,11 @@ abstract class Customer {
 ```Groovy
 class Customer {
     def plan, checkCredit, checkInventtory, ship
-    
+
     def CustomerBlocks() {
         plan[]
     }
-    
+
     // 특별보호 접근자(?.) : 객체가 널인지 확인한 후에 메서드를 실행 
     def process() {
         checkCredit?.call()
@@ -81,15 +75,11 @@ class Customer {
 
 > 고계함수가 있기 때문에 커맨드패턴, 탬플릿 패턴과 같은 고전적인 패턴에서 자주 사용하는 보일러플레이트 코드가 필요없어짐.
 
-
-
-### **전략\(Strategy\) 패턴** 
+### **전략\(Strategy\) 패턴**
 
 각자 캡슐화되어 서로 교환 가능한 알고리즘 군으로 정의하여 클라이언트에 상관없이 바꿔서 사용할 수 있게 해주는 패턴.
 
 일급함수를 사용하면 사용이 간편해짐.
-
-
 
 **그루비로 작성한 전통적인 전략 패턴**
 
@@ -114,7 +104,6 @@ class CalcAdds implements Calc {
 10
 > new CalcAdds().product(5, 2)
 10
-
 ```
 
 **개선된 함수형프로그래밍 전략패턴**
@@ -143,17 +132,37 @@ calcAdds(5, 2)
 
 
 
+#### 디자인 패턴 잘 정리된 사이트
 
+* 자바 : [http://www.tutorialspoint.com/design\_pattern](http://www.tutorialspoint.com/design_pattern/)
+* 클로져 : [http://clojure.or.kr/docs/clojure-and-gof-design-patterns.html](http://clojure.or.kr/docs/clojure-and-gof-design-patterns.html)
 
+#### 디자인 패턴
 
-
-
-
-
-
-
-
-
+* 커맨드 패턴 - 함수로 구현하면 분리된 객체를 여러개 만들필요없이 실행함수로서 커맨드를 반환하기만 하면됨 
+  * ```Scala
+    def toUpperCase(str : String) : () => String = { () => str.toUpperCase } 
+    def transform : () => String = toUpperCase("foo")
+    println(transform())
+    ```
+* 전략 패턴 - 함수를 인수로 받는 함수. 일급 함수 자체를 변수에 할당해서 구현
+* 상태 패턴 - 상태에 의존하는 전략 패턴. 패턴매칭을 통해서 간단하게 구현 
+* 방문자 패턴 - 다중 디스패치.
+* 템플릿 메소드 패턴 - 기본 값을 포함한 전략 패턴.
+* 이터레이터 패턴 - 시퀀스
+* 메멘토 패턴 - 저장과 복구
+* 관찰자 패턴 - 다른 함수뒤에 호출되는 함수.
+* 인터프리터 패턴 - 트리를 처리하는 함수들.
+* 플라이웨이트 패턴 - 캐쉬.
+* 빌더 패턴 - 선택 인수.
+* 책임 연쇄 패턴 - 함수 합성.
+* 합성 패턴 - 트리
+* 팩토리 메소드 패턴 - 객체 생성 전략.
+* 추상 팩토리 패턴 - 관련 객체 생성 전략.
+* 어댑터 패턴 - 랩퍼, 같은 기능들, 다양한 타입.
+* 데코레이터 패턴 - 랩퍼, 같은 타입, 새로운 기능.
+* 프록시 패턴 - 랩퍼, 함수 합성.
+* 브릿지 패턴 - 추상과 구체의 분리.
 
 
 
