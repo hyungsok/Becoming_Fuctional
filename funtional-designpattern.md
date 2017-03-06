@@ -2,9 +2,9 @@
 
 > 함수형 프로그래밍에서는 전통적인 디자인 패턴들이 다음 세가지로 나타난다고 함.
 >
-> * 패턴이 언어에 흡수
+> * 패턴이 언어에 흡수 \(일차함수로 패턴처리를 구현\)
 > * 패턴 해법이 함수형 패러다임에도 존재하지만, 구체적인 구현 방식은 다름
-> * 패턴 해법이 패러다임에 없는 기능으로 구현 \( 자바로는 불가능한 \)
+> * 패턴 해법이 패러다임에 없는 기능으로 구현
 
 ### 
 
@@ -73,16 +73,18 @@ class Customer {
 }
 
 // 일급함수를 이용하면 아래와 같이 심플하게 구현가능
-class UsCustomerBlocks extends Customer {  
-    def UsCustomerBlocks() {    
-        checkCredit = { plan.add "checking US customer credit" }    
-        checkInventory = { plan.add "checking US warehouses" }    
+class UsCustomerBlocks extends Customer {
+
+    def UsCustomerBlocks() {
+
+        checkCredit = { plan.add "checking US customer credit" }
+
+        checkInventory = { plan.add "checking US warehouses" }
+
         ship = { plan.add "Shipping to US address" }
     } 
 }
 ```
-
-
 
 ### **전략\(Strategy\) 패턴**
 
@@ -109,29 +111,44 @@ class CalcAdds implements Calc {
     }
 }
 
-class StrategyTest {  
-    def listOfStrategies = [new CalcMult(), new CalcAdds()]  
-    
-    @Test  
-    public void product_verifier() {    
-        listOfStrategies.each { s -> assertEquals(10, s.product(5, 2))} 
+class StrategyTest {
+
+    def listOfStrategies = [new CalcMult(), new CalcAdds()]
+
+
+    @Test
+
+    public void product_verifier() {
+
+        listOfStrategies.each { s ->
+ assertEquals(10, s.product(5, 2))
+} 
     }
-}
+
+}
 ```
 
 **개선된 함수형프로그래밍 전략패턴**
 
 ```
 @Test
-public void exp_verifier() {  
-    def listOfExp = [      
-        {n, m -> n * m },      
-        {n, m ->        
+public void exp_verifier() {
+
+    def listOfExp = [
+
+        {n, m -> n * m },
+
+        {n, m ->
+
             def result = 0
             n.times { result += m }
             result
-        }]  
-    listOfExp.each { e -> assertEquals(10, e(5, 2)) } 
+
+}]
+
+    listOfExp.each { e ->
+ assertEquals(10, e(5, 2))
+ } 
  }
 ```
 
@@ -179,7 +196,8 @@ class AssignedComputer {
   }
 }
 
-@Singleton(strict=false) class ComputerFactory {
+@Singleton(strict=false) 
+class ComputerFactory {
   def types = [:]
 
   private ComputerFactory() {
