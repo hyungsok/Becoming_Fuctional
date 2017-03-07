@@ -158,7 +158,7 @@ eachEnabledContact({ contact -> contact.sendEmail(msg)})
 # 불변성 
 * 데이터베이스의 트랜잭션과 동일한 개념 ( 변경전, 후만 남게 되기 때문 )
 
-```
+```groovy
 // Customers 리스트에서 특정 id를 가진 고객들만 매핑하여 수정합니다 
 public static List<Customer> setContractForCustomerList(List<Integer> ids, Boolean status) {
 // allCustomers 리스트를 순회하면서 현재 id가 ids 리스트에 포함 되어 있는지 
@@ -185,7 +185,8 @@ public static List<Customer> setContractForCustomerList(List<Integer> ids, Boole
     }
 ```
 
-* 반복 로직을 추상화하여 리팩토링
+* **반복 로직을 추상화하여 리팩토링**
+
 ```groovy
 public static List<Customer> updateCustomerByIdList(List<Integer> ids, Closure cls) {
     Customer.allCustomers.collect { customer ->
