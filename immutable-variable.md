@@ -1,12 +1,16 @@
+## 불변변수 \(Immutable Variable\)
 
 ## 불변성
+
 * 지역변수는 변하지 않는다.
 * 전역변수는 레퍼런스만 바뀐다.
 
 ## 가변성
-* 변수 : 변하는(variable) 저장소
+
+* 변수 : 변하는\(variable\) 저장소
 
 ## 함수에 전달한 변숫값 변경
+
 ```groovy
 def f = "Foo"
 def func(obj) {
@@ -40,10 +44,13 @@ println f.str
 Foo
 Bar
 ```
-## 한빛증권 이메일 보내기 프로젝트 
+
+## 한빛증권 이메일 보내기 프로젝트
+
 ![](/assets/immutable-variable_1.png)
 
-### 그루비로 작성한 계약 정보를 수정하는 예제 
+### 그루비로 작성한 계약 정보를 수정하는 예제
+
 ```groovy
 // 조회한 고객 한 명이 들어 있거나, 또는 텅 비어 있든지 (널 체크가 필요없는 안전한 방법) : findAll 고차함수 
 def getCustomerById(Integer customerId) {
@@ -53,7 +60,8 @@ def getCustomerById(Integer customerId) {
 }
 ```
 
-### 수정된 contract 출력 ( collect, each )
+### 수정된 contract 출력 \( collect, each \)
+
 ```groovy
 Customer.allCustomers.collect({ customer ->
             customer.contract.enabled = false 
@@ -75,7 +83,8 @@ Customer.allCustomers.collect({ customer ->
 = contract : Sun Oct 02 19:40:00 KST 2016 : false
 ```
 
-## 한빛증권 이메일 프로젝트 
+## 한빛증권 이메일 프로젝트
+
 ```groovy
 /**
 안녕하세요, Yoon Cadon 고객님
@@ -128,11 +137,10 @@ def msg = "안녕하세요, %s %s 고객님\n" +
                 "감사합니다.\n" +
                 "고객님의 평생 파트너 ‘한빛증권’"
 eachEnabledContact({ contact -> contact.sendEmail(msg)})
-
 ```
 
-
 ## 한빛증권 이메일 요구사항 변경
+
 ```
 발신: 한빛증권 신상품 소개 <trials@hanbitmall.com>
 수신: 김상민 <smkim@hanbit.co.kr>
@@ -145,18 +153,20 @@ eachEnabledContact({ contact -> contact.sendEmail(msg)})
 운영팀에 따르면 김창수씨는 김상민 → 김창수로 개명을 했는데, 이메일 본문엔 김창수로, 주소는
 김상민 <smkim@hanbit.co.kr>으로 발송이 되었다는 말입니다.
 ```
+
 ![](https://github.com/funfunStudy/study/blob/master/images/4-1.png)
-* 동시성 (concurrency) 공유된 변수가 실제로 어느 시점에 어떤 상태라는 보장이 없음을 의미
+
+* 동시성 \(concurrency\) 공유된 변수가 실제로 어느 시점에 어떤 상태라는 보장이 없음을 의미
 * 해결책
- * Customer.allCustomers 객체의 모든 접근을 동기화한다. 
-    - 모든 접근을 synchronized 블록
-    - 병목현상이 발생할 있음 
- * Customer.allCustomers 리스트와 멤버를 변경할 수 없게 한다. 
-    - 수정된 멤버를 가진 새로운 리스트를 생성해야되는 불편
+  * Customer.allCustomers 객체의 모든 접근을 동기화한다. 
+    * 모든 접근을 synchronized 블록
+    * 병목현상이 발생할 있음 
+  * Customer.allCustomers 리스트와 멤버를 변경할 수 없게 한다. 
+    * 수정된 멤버를 가진 새로운 리스트를 생성해야되는 불편
 
+# 불변성
 
-# 불변성 
-* 데이터베이스의 트랜잭션과 동일한 개념 ( 변경전, 후만 남게 되기 때문 )
+* 데이터베이스의 트랜잭션과 동일한 개념 \( 변경전, 후만 남게 되기 때문 \)
 
 ```groovy
 // Customers 리스트에서 특정 id를 가진 고객들만 매핑하여 수정합니다 
@@ -233,16 +243,13 @@ public static List<Customer> updateContractForCustomerList(List<Integer> ids, Cl
 }
 ```
 
-
 # 정리하기
+
 * 불변변수의 장점
- - 버그 추적이 쉬워짐 ( 특정 변수들이 불변이란 사실을 이미 알고 있으므로 ) 
- - 함수 파라미터와 반환값에 대해 더욱 분명히 이해할 수 있음
+  * 버그 추적이 쉬워짐 \( 특정 변수들이 불변이란 사실을 이미 알고 있으므로 \) 
+  * 함수 파라미터와 반환값에 대해 더욱 분명히 이해할 수 있음
 * 불변변수의 단점
- - 대규모의 코드 리팩토링을 수반하므로 단행하기가 만만치 않음 
-
-
-
+  * 대규모의 코드 리팩토링을 수반하므로 단행하기가 만만치 않음 
 
 
 
