@@ -4,7 +4,7 @@
   * 그루비는 동적 타이핑 언어이다. 런타임 시점에 새로운 타입을 생성할 수 있고, 컴파일 시점에서는 맞지 않는 타입을 전달해도 경고조차 하지 않는다.
   * 그루비의 이런 특징은, 함수에 부적합한 클래스를 넘기지 않도록 코딩 시 100% 단위 테스트를 작성함으로써 극복할 수 있다.
 * 설치방법 : [http://groovy-lang.org/download.html\#otherways](http://groovy-lang.org/download.html#otherways)
-* 2016년 전세계 16위 언어비중을 차지 \( [http://www.tiobe.com/tiobe-index](http://www.tiobe.com/tiobe-index)\)
+* 2016년 전세계 16위 언어비중을 차지 \( [http://www.tiobe.com/tiobe-index](http://www.tiobe.com/tiobe-index\)\)
 * 안드로이드의 빌드 스크립트로 널리 쓰임 \( build.gradle \)
   * 멀티프로젝트 대응 \(알파, 베타, 단말별리소스, OS버전\)
   * 컴포넌트로 만들기 쉬움 \(분할, 재사용, 확장\)
@@ -47,8 +47,7 @@ String greet =  '''
                 ************
                 '''
 println greet
-
-
+[출력]
 ************
 *  Hellow  *
 ************
