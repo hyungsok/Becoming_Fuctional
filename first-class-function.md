@@ -4,16 +4,13 @@
  * 파라미터로 전달 할 수 있다.
  * 반환값(return value)으로 사용할 수 있다.
  * 할당에 사용된 이름과 관계없이 고유한 구별이 가능하다.
+* 참고소스 (순수 자바 소스) : https://github.com/jbackfield/BecomingFunctional/tree/master/Chapter2
 
-
-* 참고소스 (순수 자바 소스)
-https://github.com/jbackfield/BecomingFunctional/tree/master/Chapter2
-* 반복 코드  
+* 반복 코드
  * ArrayList 생성 
  * for루프
  * if문
  * return 문
-(위의 소스를 리펙토링해보면서 일급함수의 이해를 하도록 구성됨)
 
 * Customer 클래스를 리펙토링 해보자 
 https://github.com/jbackfield/BecomingFunctional/blob/master/Chapter2/Introduction/Customer.java
