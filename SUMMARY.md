@@ -8,4 +8,5 @@
 * [funtional OOP](funtional-oop.md)
 * [first-class function](first-class-function.md)
 * [pure function](pure-function.md)
+* [immutable variable](immutable-variable.md)
 
