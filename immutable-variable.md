@@ -76,12 +76,14 @@ Customer.allCustomers.collect({ customer ->
 ```
 
 ## 한빛증권 이메일 프로젝트 
-```
+```groovy
+/**
 안녕하세요, Yoon Cadon 고객님
 금번 폐사가 새로 출시한 상품이 있어 연락드리게 되었습니다. 한번 사용해보시고 구매를 결정하셔
 도 되니 부담없이 02-2128-8731으로 전화주시면 안내해 드리겠습니다.
 감사합니다.
 고객님의 평생 파트너 ‘한빛증권’
+*/
 
 // 예시 
 class Contact {
@@ -184,7 +186,7 @@ public static List<Customer> setContractForCustomerList(List<Integer> ids, Boole
 ```
 
 * 반복 로직을 추상화하여 리팩토링
-```
+```groovy
 public static List<Customer> updateCustomerByIdList(List<Integer> ids, Closure cls) {
     Customer.allCustomers.collect { customer ->
         if(ids.indexOf(customer.id) >= 0) {
