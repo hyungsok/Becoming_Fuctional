@@ -3,11 +3,8 @@
 * 기존 언어와는 달리 변수 타입이 동적\(dynamical\)이고 유연하며, 소스 파일을 컴파일하지 않고 바로 실행시키는 스크립팅 언어
   * 그루비는 동적 타이핑 언어이다. 런타임 시점에 새로운 타입을 생성할 수 있고, 컴파일 시점에서는 맞지 않는 타입을 전달해도 경고조차 하지 않는다.
   * 그루비의 이런 특징은, 함수에 부적합한 클래스를 넘기지 않도록 코딩 시 100% 단위 테스트를 작성함으로써 극복할 수 있다.
-* 설치방법 :
-  [http://groovy-lang.org/download.html\#otherways](http://groovy-lang.org/download.html#otherways)
-* 2016년 전세계 16위 언어비중을 차지 \(
-  [http://www.tiobe.com/tiobe-index](http://www.tiobe.com/tiobe-index)
-  \)
+* 설치방법 : [http://groovy-lang.org/download.html\#otherways](http://groovy-lang.org/download.html#otherways)
+* 2016년 전세계 16위 언어비중을 차지 \( [http://www.tiobe.com/tiobe-index](http://www.tiobe.com/tiobe-index)\)
 * 안드로이드의 빌드 스크립트로 널리 쓰임 \( build.gradle \)
   * 멀티프로젝트 대응 \(알파, 베타, 단말별리소스, OS버전\)
   * 컴포넌트로 만들기 쉬움 \(분할, 재사용, 확장\)
@@ -23,18 +20,15 @@
 
 ## "==" 의미
 
-* ==는 모든 형식에서 동등함을 의미 equals\(\)의 기능을 의미
-* 자바에서의 == 를 사용하고 싶다면 is라는 내장 함수를 사용
-  * ex
-    &gt;
-     foo.is\(bar\)
+* ==는 모든 형식에서 동등함을 의미 **equals\(\)**의 기능을 의미
+* 자바에서의 == 를 사용하고 싶다면 **is**라는 내장 함수를 사용
+  * ex&gt; foo.is\(bar\)
 
-## Groovy에서는 모든게 객체이다, 숫자도
+## Groovy에서는 모든게 객체이다 \(숫자, 함수등\)
 
-```
+```groovy
 println 3.toString();
 3.plus(3)  // 6
-
 ```
 
 ## 문자열
@@ -46,17 +40,18 @@ println 3.toString();
   * String name = "Project: $name"
 * 작은따옴표, 큰따옴표를 세개를 연달아 쓰면 여러줄 표기 가능
 
-```
+```groovy
 String greet =  '''
                 ************
                 *  Hellow  *
                 ************
                 '''
 println greet
-                ************
-                *  Hellow  *
-                ************
 
+
+************
+*  Hellow  *
+************
 ```
 
 ## 메세드 호출 시 괄호 생략
@@ -69,9 +64,8 @@ println greet
 ## def를 이용한 형 지정 생략
 
 * def를 지정하는 것은 자바에서 Object형을 지정한 것과 같음.
-* String name = 'Lee' -
-  &gt;
-   def name = 'Lee'
+  * java : **String name = 'Lee'**  
+  * groovy : **def name = 'Lee'**
 * def를 이용한 형 지정 생략은 변수, 메소드, 인수, 반환값에도 적용 가능
 
 ## 메소드의 리턴문
@@ -84,38 +78,31 @@ println greet
 * for \(변수멍 in 컬렉션\)
 * 자바에서 for\(;;\)지원 가능
 
-## 클로져
+## 클로져 \( Closure \)
 
-> 그루비 클로져는 코드 블록 혹은 메서드 포인터와 같다. 클로져는 정의 후 나중에 실행할 코드 조각을 말한다. 클로저는 어딘가에 정의된 임의의 코드가 다른 코드에 전달되고 실행되는 것을 말한다. 객체지향 언어에서는 이런 행동을 흉내 낼때 매서드-객체 패턴을 사용하곤 한다. 그루비에서 클로저는 다른 코드 블록처럼 중괄호로 둘러싸인 문장들이다. 인자가 있는 경우에는 먼저 인자들이 나오고 화살표\( -&gt; \) 뒤에 문장들이 나오기도 한다.
+* 그루비 클로져는 코드 블록 혹은 메서드 포인터와 같다. 클로져는 정의 후 나중에 실행할 코드 조각 
+* 클로저는 어딘가에 정의된 임의의 코드가 다른 코드에 전달되고 실행되는 것을 말함.
+* 객체지향 언어에서는 이런 행동을 흉내 낼때 매서드-객체 패턴을 사용
+* 그루비에서 클로저는 다른 코드 블록처럼 중괄호로 둘러싸인 문장들이다. 인자가 있는 경우에는 먼저 인자들이 나오고 화살표\( -&gt; \) 뒤에 문장들이 나오기도 함.
 
-```
-[1, 2, 3].each { entry -
->
- println entry }
-
+```groovy
+[1, 2, 3].each { entry -> println entry }
 ```
 
 1. \[1, 2, 3\] 리스트
 2. each 반복 메서드
-3. { entry -
-   &gt;
-    println entry } 중괄호 내의 클로저 entry 인자
+3. { entry -&gt; println entry } 중괄호 내의 클로저 entry 인자
 4. println entry 문장
 
-```
-[1,2,3].each{it+1}
+```groovy
+[1,2,3].each{ it + 1 }
 // 출력 : 2 3 4 (인수를 생략하면 암묵적인수 it을 사용하면 된다)
-
 ```
 
-```
+```groovy
 class Closer01 {
-    def cl = { param1, param2 -
->
- param1 + param2 }
-    def cl_mul = { param, param2 -
->
- param2 * param2 }
+    def cl = { param1, param2 -> param1 + param2 }
+    def cl_mul = { param, param2 -> param2 * param2 }
 
     static def func_cl(pc) {
         def val = 1
@@ -130,7 +117,6 @@ class Closer01 {
 }
 
 // 출력은 3, 4 
-
 ```
 
 ## 패키지 표현방식
@@ -139,14 +125,13 @@ class Closer01 {
 자바 : java.net.URLEncoder.encode("a b");
 // 그루비 코드는 짧기만 한게 아니라, 코드의 목적을 가장 간단한 형태로 보여준다. 
 그루비: URLEncoder.encode 'a b'
-
 ```
 
 ## 맵
 
 * key:Value 형태로 이루어지며 JVM에서 java.util.HashMap으로 인식
 
-```
+```groovy
 def http = [
     100 : 'continue',
     200 : 'ok',
@@ -172,12 +157,11 @@ key: 400, value: bad request
 
 http.put(500, 'test')
 println(http) // [100:continue, 200:ok, 400:bad request, 500:test]
-
 ```
 
 ## 리스트
 
-```
+```groovy
 def roman = [ '', '1', '2', '3', '4', '5', '6', '7'  ]
 assert roman[4] == '4'
 
@@ -206,12 +190,11 @@ println colorSet.class.name
 
 colorSet : [Red, Green, Blue]
 java.util.LinkedHashSet
-
 ```
 
 ## range
 
-```
+```groovy
 def x = 1..10
 assert x.contains(5)
 assert x.contains(15) == false
