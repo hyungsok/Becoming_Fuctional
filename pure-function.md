@@ -8,6 +8,7 @@
 * 인자가 같다면 순수 함수의 결과는 일정해야 한다. (참조투명성)
 * 함수의 결과는 오직 입력된 파라미터에만 의존해야한다. 함수 외부의 어떤 값에도 의존하지 않는다. 
  * 전역변수, 파일이나 네트워크로 부터 읽지 않아야 한다. 
+ 
 ``` java
 package chapter3;
 
@@ -390,9 +391,11 @@ public class FunctionalConcepts {
 
 
 ## 그루비란 
-https://github.com/funfunStudy/study/wiki/Groovy
+[](https://hyungsok.gitbooks.io/becoming-fuctional/content/groovy.html)
+
 
 # 그루비 문법에 맞게 리팩토링
+
 ```groovy 
 // 널 체크가 필요없는 안전한 방법
 def getCustomerById(Integer customerId) { 
@@ -408,6 +411,7 @@ def setContractForCustomer(Integer customerId) {
        contract -> println contract })
 }
 ```
+
 ```java 
 import java.util.ArrayList;
 import java.util.List;
