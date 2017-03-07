@@ -1,21 +1,21 @@
 # 일급함수 (First-class Function)
-* 일급함수란? (일급객체) : 일급 함수는 스스로 객체로 취급되는 함수, 다른 함수에 파라미터로 전달하고 반환받을 수 있고, 그냥 변수로 저장할 수도 있는 함수
+* **일급함수란? (일급객체)** : 일급 함수는 스스로 객체로 취급되는 함수, 다른 함수에 파라미터로 전달하고 반환받을 수 있고, 그냥 변수로 저장할 수도 있는 함수
  * 변수나 데이터 구조안에 담을 수 있다.
  * 파라미터로 전달 할 수 있다.
  * 반환값(return value)으로 사용할 수 있다.
  * 할당에 사용된 이름과 관계없이 고유한 구별이 가능하다.
 * 참고소스 (순수 자바 소스) : https://github.com/jbackfield/BecomingFunctional/tree/master/Chapter2
-
 * 반복 코드
  * ArrayList 생성 
  * for루프
  * if문
  * return 문
 
-* Customer 클래스를 리펙토링 해보자 
+
+* **Customer 클래스를 리펙토링 해보자 **
 https://github.com/jbackfield/BecomingFunctional/blob/master/Chapter2/Introduction/Customer.java
 
-* if else을 활용한 Customer 리펙토링 코드
+* **if else을 활용한 Customer 리펙토링 코드**
  * 좋지 않은 리펙토링 철자가 조금이라도 틀리면 오류가 나오는 불안한 구조 
 
 ``` java
@@ -42,7 +42,7 @@ https://github.com/jbackfield/BecomingFunctional/blob/master/Chapter2/Introducti
     }
 ```
 
-* 인터페이스를 이용한 Custom 리펙토링 
+* **인터페이스를 이용한 Custom 리펙토링 **
 ```java
 
     private interface ConversionFunction { 
@@ -60,10 +60,12 @@ https://github.com/jbackfield/BecomingFunctional/blob/master/Chapter2/Introducti
     }
 ```
 
-* 함수의 구조 (함수명, 파라미터, 몸체, 반환)  
+
+## 함수의 구조 (함수명, 파라미터, 몸체, 반환)  
 
 * 제네릭 타이핑(generic typing) 기법으로 좀 더 추상화된 인터페이스로 Customer 리펙토링 
  * Scala Function : http://www.scala-lang.org/api/rc2/scala/Function1.html
+ 
 ```java
 public interface Function1<A1, B> {
     B call(A1 in1);
@@ -87,6 +89,7 @@ https://github.com/jbackfield/BecomingFunctional/blob/master/Chapter2/FunctionsA
  * 람다, 클로져라는 익명함수 존재 
 
 * 람다함수 : 파라미터 리스트, 몸체, 반환부만으로 구성된, 이름이 없는 함수
+
 ```java 
 public class Customer {
     static public ArrayList<Customer> allCustomers = new ArrayList<Customer>();
@@ -208,10 +211,12 @@ public class Customer {
 }
 ```
 
+
 * 클로져 ( Closer - Closed-Over : 둘러싼 변수 )
  * 클로저는 함수 스코프 밖의 변수를 참조한다는 점만 다르고 람다 함수와 거의 같음
  * 몸체나 파라미터 리스트 어느 쪽에도 존재하지 않는 변수를 참조
  * 인수 이외의 변수를 실행시 환경이 아니라 자신이 정의된 환경(정적 스코프)에서 해결
+
 
 ```javacript
 function getAdder(x) {
@@ -236,7 +241,6 @@ public static List<String> getEnabledCustomerSomeoneEmail(final String someone) 
 var more = 1 // 함수 스코프영역을 벗어난 리터럴 함수 
 val addMore = x => x + more
 ```
-
 
 * 그루비를 이용한 get 함수 리팩토링
 ```groovy
