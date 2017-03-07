@@ -26,9 +26,9 @@
 
 ---
 
-**그루비를 통한 패턴매치의 예**
+**그루비를 통한 패턴매치의 예 \( 자세한 소스는 chapter 8 참고 \)**
 
-```groovy
+```scala
 object CustomerFactory {
   /**
     * Customer 객체 제약사항
