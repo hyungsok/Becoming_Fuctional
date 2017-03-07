@@ -215,6 +215,7 @@ public class Customer {
  * 클로저는 함수 스코프 밖의 변수를 참조한다는 점만 다르고 람다 함수와 거의 같음
  * 몸체나 파라미터 리스트 어느 쪽에도 존재하지 않는 변수를 참조
  * 인수 이외의 변수를 실행시 환경이 아니라 자신이 정의된 환경(정적 스코프)에서 해결
+
 ```javacript
 function getAdder(x) {
   return function(y) {
@@ -225,22 +226,23 @@ function getAdder(x) {
 ```
 
 ```java
-// 자바 
+// 자바 : someone 이라는 지역변수를 익명내부클래스에 전달하기 위해서 final이라는 예약어를 이용해 사용
 public static List<String> getEnabledCustomerSomeoneEmail(final String someone) {
     return Customer.getEnabledCustomerField(new Function1<Customer, String>() {
         public String call(Customer customer) {
             return someone + "@" + customer.domain; }
     }); }
+```
 
+```scala
 // 스칼라 
 var more = 1 // 함수 스코프영역을 벗어난 리터럴 함수 
 val addMore = x => x + more
 ```
- * someone 이라는 지역변수를 익명내부클래스에 전달하기 위해서 final이라는 예약어를 이용해 사용
 
 
 * 그루비를 이용한 get 함수 리팩토링
-```
+```groovy
 //전체 휴면 고객 성명 조회 
 allCustomers.findAll(
 { customer -> customer.enabled == false } ).collect(
