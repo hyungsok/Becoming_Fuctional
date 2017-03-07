@@ -7,7 +7,7 @@
 * 변수 : 변하는(variable) 저장소
 
 ## 함수에 전달한 변숫값 변경
-```
+```groovy
 def f = "Foo"
 def func(obj) {
    // obj와 f는 아무런 연관관계가 없으므로 f값는 그대로 유지 
@@ -22,7 +22,7 @@ Foo
 Foo
 ```
 
-```
+```groovy
 // 위의 의도를 구현하려면 값을 변경하려는 레퍼런스가 포함된 가변객체를 사용하면 해결
 class Foo {
   String str
@@ -41,10 +41,10 @@ Foo
 Bar
 ```
 ## 한빛증권 이메일 보내기 프로젝트 
-![](/asserts/immutable-variable_1.png)
+![](/assets/immutable-variable_1.png)
 
 ### 그루비로 작성한 계약 정보를 수정하는 예제 
-```
+```groovy
 // 조회한 고객 한 명이 들어 있거나, 또는 텅 비어 있든지 (널 체크가 필요없는 안전한 방법) : findAll 고차함수 
 def getCustomerById(Integer customerId) {
   Customer.allCustomers.findAll({ customer ->
@@ -54,7 +54,7 @@ def getCustomerById(Integer customerId) {
 ```
 
 ### 수정된 contract 출력 ( collect, each )
-```
+```groovy
 Customer.allCustomers.collect({ customer ->
             customer.contract.enabled = false 
             customer.contract
