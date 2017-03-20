@@ -12,7 +12,7 @@
 
 **원본**
 
-```
+```scala
 class Contact(val contact_id: Integer,
     val firstName: String,
     val lastName: String,
@@ -27,7 +27,7 @@ class Contact(val contact_id: Integer,
 
 **개선**
 
-```
+```scala
 // 새로 작성한 Email 클래스 (그릇의 역할)
 case class Email(val address: String, 
     val subject: String, 
@@ -47,7 +47,7 @@ object Email {
 
 > 스칼라는 정적멤버\(필드 + 메소드\)를 싱글톤형태의 동반객체 \(Companion object\)에 담아놓으면 동일 소스파일에서 동반 객체와 동반 클래스는 서로 비공개 멤버까지 마음대로 참조할수가 있다.
 
-```
+```scala
 // 리펙토링한 Contact클래스 
 class Contact(val contact_id: Integer,
     val firstName: String,
@@ -61,8 +61,6 @@ class Contact(val contact_id: Integer,
 }
 ```
 
-
-
 ### 객체는 그릇이다.
 
 * 함수형 프로그래밍과 OOP가 서로 잘어울릴수 있게 만든 방안
@@ -72,7 +70,7 @@ class Contact(val contact_id: Integer,
     * 이메일생성에 필요한 필드만 포함
     * 이메일발송 기능은 없음
 
-```
+```scala
 object Email {
   // Email 객체에서 공통 기능을 send 함수로 추출
   def send(to : String, subject : String, body : String) : Boolean = {
@@ -104,7 +102,7 @@ case class Email(val address : String,
 }
 ```
 
-```
+```scala
 // sendEmail함수 수정  
 class Contact(val contact_id: Integer,
     val firstName: String,
@@ -118,21 +116,19 @@ class Contact(val contact_id: Integer,
 }
 ```
 
-
-
 ### 코드는 데이터다
 
 * 전략 디자인 패턴의 확장 \( 일급함수를 매개변수로 전달 \)
   * 전략패턴이란?
-      * 객체에 다른 전략의 메소드를 계속 추가해서 코드의 변경을 가하는 것보다 그 전략들을 별도의 객체로 빼서 구현하여 기존 코드의 수정없이 전략을 추가하는것 \( 상위 클래스의 행위를 정의하여 하위 클래스의 행위를 구현 처리하도록 처리 \)
-      * [https://www.tutorialspoint.com/design\_pattern/strategy\_pattern.htm](https://www.tutorialspoint.com/design_pattern/strategy_pattern.htm)
+    * 객체에 다른 전략의 메소드를 계속 추가해서 코드의 변경을 가하는 것보다 그 전략들을 별도의 객체로 빼서 구현하여 기존 코드의 수정없이 전략을 추가하는것 \( 상위 클래스의 행위를 정의하여 하위 클래스의 행위를 구현 처리하도록 처리 \)
+    * [https://www.tutorialspoint.com/design\_pattern/strategy\_pattern.htm](https://www.tutorialspoint.com/design_pattern/strategy_pattern.htm)
 * 업무지시
   * 화면에 질문을 보여주고 사용자로부터 입력을 받는다. \( CommandLineOption 클래스 작성 \)
     * 명령어와 일급함수와 매치하여 CommandLineOption 클래스를 구성한다.
   * 사용자에게 모든 가능한 옵션을 보여준다. \( Map&lt;string, CommandLineOption&gt; 으로 옵션 데이터 추가 \)
   * 사용자의 입력을 해석한다. \( Pattern Matching 통해서 처리 \)
 
-```Scala
+```scala
 case class CommandLineOption(description: String, func: () => Unit)
 
 object CommandLine {
