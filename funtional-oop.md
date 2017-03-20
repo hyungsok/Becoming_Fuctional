@@ -9,11 +9,6 @@
   * 객체는 하나의 그릇으로 다루는 방식으로 함수와 데이터 바라보는 관점이 달라짐.
 * 업무지시
   * 어떤 양식으로 이메일을 보낼수있도록 이메일 발송 로직을 따로 추출해서 리펙토링하여 개선하라
-  * 전략패턴을 함수형 언어로 리펙토링 처리
-    * 전략패턴이란?
-      * 객체에 다른 전략의 메소드를 계속 추가해서 코드의 변경을 가하는 것보다 그 전략들을 별도의 객체로 빼서 구현하여 기존 코드의 수정없이 전략을 추가하는것 \( 상위 클래스의 행위를 정의하여 하위 클래스의 행위를 구현 처리하도록 처리 \)
-
-      * [https://www.tutorialspoint.com/design\_pattern/strategy\_pattern.htm](https://www.tutorialspoint.com/design_pattern/strategy_pattern.htm)
 
 **원본**
 
@@ -128,7 +123,9 @@ class Contact(val contact_id: Integer,
 ### 코드는 데이터다
 
 * 전략 디자인 패턴의 확장 \( 일급함수를 매개변수로 전달 \)
-  * 디자인패턴 : [https://www.tutorialspoint.com/design\_pattern/strategy\_pattern.htm](https://www.tutorialspoint.com/design_pattern/strategy_pattern.htm)
+  * 전략패턴이란?
+      * 객체에 다른 전략의 메소드를 계속 추가해서 코드의 변경을 가하는 것보다 그 전략들을 별도의 객체로 빼서 구현하여 기존 코드의 수정없이 전략을 추가하는것 \( 상위 클래스의 행위를 정의하여 하위 클래스의 행위를 구현 처리하도록 처리 \)
+      * [https://www.tutorialspoint.com/design\_pattern/strategy\_pattern.htm](https://www.tutorialspoint.com/design_pattern/strategy_pattern.htm)
 * 업무지시
   * 화면에 질문을 보여주고 사용자로부터 입력을 받는다. \( CommandLineOption 클래스 작성 \)
     * 명령어와 일급함수와 매치하여 CommandLineOption 클래스를 구성한다.
