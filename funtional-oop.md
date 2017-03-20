@@ -10,7 +10,10 @@
 * 업무지시
   * 어떤 양식으로 이메일을 보낼수있도록 이메일 발송 로직을 따로 추출해서 리펙토링하여 개선하라
   * 전략패턴을 함수형 언어로 리펙토링 처리
-    * [https://www.tutorialspoint.com/design\_pattern/strategy\_pattern.htm](https://www.tutorialspoint.com/design_pattern/strategy_pattern.htm)
+    * 전략패턴이란?
+      * 객체에 다른 전략의 메소드를 계속 추가해서 코드의 변경을 가하는 것보다 그 전략들을 별도의 객체로 빼서 구현하여 기존 코드의 수정없이 전략을 추가하는것 \( 상위 클래스의 행위를 정의하여 하위 클래스의 행위를 구현 처리하도록 처리 \)
+
+      * [https://www.tutorialspoint.com/design\_pattern/strategy\_pattern.htm](https://www.tutorialspoint.com/design_pattern/strategy_pattern.htm)
 
 **원본**
 
@@ -63,7 +66,7 @@ class Contact(val contact_id: Integer,
 }
 ```
 
-### 
+
 
 ### 객체는 그릇이다.
 
@@ -120,7 +123,7 @@ class Contact(val contact_id: Integer,
 }
 ```
 
-### 
+
 
 ### 코드는 데이터다
 

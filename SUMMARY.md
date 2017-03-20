@@ -9,5 +9,5 @@
 * [패턴매치 \(patten match\)](patten-match.md)
 * [함수 디자인패턴 \(funtional DesignPattern\)](funtional-designpattern.md)
 * [함수 OOP \(funtional OOP\)](funtional-oop.md)
-* [커링 \(currying\)](currying.md)
+* [미정리](currying.md)
 
