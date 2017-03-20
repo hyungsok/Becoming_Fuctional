@@ -34,7 +34,7 @@
 
 **그루비로 작성한 전형적인 템플릿 메서드 **
 
-```Groovy
+```groovy
 abstract class Customer {
     def plan
 
@@ -56,7 +56,7 @@ abstract class Customer {
 
 **일급함수를 사용한 템플릿 메서드 **
 
-```Groovy
+```groovy
 class Customer {
     def plan, checkCredit, checkInventtory, ship
 
@@ -74,13 +74,9 @@ class Customer {
 
 // 일급함수를 이용하면 아래와 같이 심플하게 구현가능
 class UsCustomerBlocks extends Customer {
-
     def UsCustomerBlocks() {
-
         checkCredit = { plan.add "checking US customer credit" }
-
         checkInventory = { plan.add "checking US warehouses" }
-
         ship = { plan.add "Shipping to US address" }
     } 
 }
@@ -96,7 +92,7 @@ class UsCustomerBlocks extends Customer {
 
 **그루비로 작성한 전통적인 전략 패턴**
 
-```Groovy
+```groovy
 interface Calc {
     def product(n, m)
 }
@@ -125,7 +121,7 @@ class StrategyTest {
 
 **개선된 함수형프로그래밍 전략패턴**
 
-```
+```groovy
 @Test
 public void product_verifier() {
     def listOfExp = [
@@ -153,7 +149,7 @@ public void product_verifier() {
 
 **그루비로 작성한 플라이웨이트 패턴 **
 
-```Groovy
+```groovy
 class Computer {
   def type
   def cpu
@@ -205,14 +201,13 @@ class ComputerFactory {
 public void flyweight_computers() {
   def bob = new AssignedComputer(ComputerFactory.instance.ofType("MacBookPro6_2"), "Bob")
   def steve = new AssignedComputer(ComputerFactory.instance.ofType("MacBookPro6_2"),"Steve") 
-
   assertTrue(bob.computerType == steve.computerType)
 }
 ```
 
 **그루비에서** **메모이제이션 \(memoization\) 상세 예제 **
 
-```Groovy
+```groovy
 @Field
 boolean incrementChange = false
 
@@ -268,7 +263,7 @@ println("\t square >> " + square(11))
 
 **그루비에서 플라이웨이트를 Momoize한 함수정의한 버전**
 
-```Groovy
+```groovy
 class Computer {
   def type
   def cpu
