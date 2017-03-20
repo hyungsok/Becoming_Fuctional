@@ -51,7 +51,7 @@ abstract class Customer {
         checkInventory()
         ship()
     }
-} 
+}
 ```
 
 **일급함수를 사용한 템플릿 메서드 **
@@ -186,6 +186,7 @@ class AssignedComputer {
 class ComputerFactory {
   def types = [:]
 
+  // 오브젝트를 미리만들어서 캐시  
   private ComputerFactory() {
     def laptop = new Laptop()
     def tower = new Desktop()
@@ -207,7 +208,7 @@ public void flyweight_computers() {
 }
 ```
 
-**메모이제이션 \(memoization\) 이란?**
+**그루비에서** **메모이제이션 \(memoization\) 상세 예제 **
 
 ```Groovy
 @Field
@@ -263,7 +264,7 @@ println("\t square >> " + square(11))
 */
 ```
 
-**플라이웨이트를 Momoize한 함수정의한 버전**
+**그루비에서 플라이웨이트를 Momoize한 함수정의한 버전**
 
 ```Groovy
 class Computer {
@@ -312,9 +313,66 @@ public void flyweight_computers() {
 
 > Memozies된 함수는 런타임 값을 캐시할 수 있게 해주는 함수임.
 >
-> 전통적인 플라이웨이트 패턴에서는 새클래스를 펙토리로 생성하여 사용하는데 함수형버전에서는 하나의 메소드를 구현한 후 메모아이즈 버전을 리턴하면 플라이웨이트 패턴의 의미를 보존하면서 아주 간단하게 구현을 하였음.
+> 전통적인 플라이웨이트 패턴에서는 새클래스를 펙토리로 생성하여 사용하는데 함수형버전에서는 하나의 메소드를 구현한 후 Memoize한 버전을 리턴하면 플라이웨이트 패턴의 의미를 보존하면서 아주 간단하게 구현을 할 수 있음.
 
 
+
+### 팩토리 패턴 \( 커링 \)
+
+> 객체를 생성하기 위해 인터페이스를 정의하지만, 어떤 클래스의 객체를 생성할 지에 대해서는 하위 클래스에서 결정
+> \[ 팩토리 패턴 활용 예 \]
+>
+> * 생성할 객체 타입을 예측할 수 없을 때 ==&gt; 부모 클래스 타입을 이용 
+> * 생성할 객체의 명세를 하위 클래스에서 정의하고자 하는 경우
+> * 객체 생성의 책임을 하위 클래스에 위임시키고 어느 하위 클래스가 위임 했는지에 대한 정보를 은닉하고자 하는 경우
+
+
+
+**커링\(currying\)**
+
+> 고차함수를 응용하는 방법의 하나로 파라미터 여러 개를 가진 함수를 한 개의 파라미터만 받는 함수의 조합으로 표현하는 기법
+>
+> * 디자인 패턴 차원에서 보면,  커링은 함수의 팩토리처럼 사용됨.
+> * 함수형 언어에서 보편적인 기능은 함수를 여느 자료구조처럼 사용할 수 있게 해주는 일급함수 덕분에 주어진 조건에 따라 다른 함수들을 리턴하는 함수를 만들 수 있음.
+
+
+
+**그루비에서의 커링**
+
+> 그루비는 커링을 Closure 클래스의 curry\(\) 함수를 사용하여 구현
+
+```groovy
+def adder = {x, y -> x + y}
+def incrementer = adder.curry(1)
+
+println "increment : " + incrementer(5)
+println "increment : " + incrementer(6)
+println "increment : " + incrementer(7)
+println "increment : " + incrementer(8)
+println "increment : " + incrementer(9)
+
+// 출력 
+increment : 6
+increment : 7
+increment : 8
+increment : 9
+increment : 10
+```
+
+**스칼라에서의 커링**
+
+```scala
+def modN(n : Int)(x : Int) = x % n
+
+def multiply(f : Int => Int, x : Int, y : Int) = f(x) + y
+
+println(multiply(modN(2), 9, 4))
+
+// 출력 
+5
+```
+
+> 커링이 언어나 런타임에 내장되어 있기 때문에, 함수 팩토리 개념이 이미 녹아들어있어 다른 구조물이 필요없다.
 
 
 
